@@ -17,7 +17,7 @@ const Navbar = () => {
                         <Button isIconOnly aria-label="Menu" variant="ghost" >
                             <Bars className="outline-none text-[#004AC6]" />
                         </Button>
-                        <Dropdown.Popover className="min-w-[220px]">
+                        <Dropdown.Popover className="min-w-55">
                             <Dropdown.Menu
                                 disabledKeys={["delete-file"]}
                                 onAction={(key) => console.log(`Selected: ${key}`)}

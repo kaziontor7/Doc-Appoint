@@ -1,5 +1,6 @@
 import { Button } from "@heroui/react";
 import Image from "next/image";
+import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 import { FaMoneyBills } from "react-icons/fa6";
 import { FiMapPin } from "react-icons/fi";
@@ -19,7 +20,7 @@ const DocCard = ({ doctor }) => {
                     </div>
 
                 </div>
-                <p className="text flex items-center gap-0.5 pt-2.5"><FaStar className="text-[#F59E0B]" /> {doctor.rating.score}</p>
+                <p className="text flex items-center gap-0.5 pt-1"><FaStar className="text-[#F59E0B]" /> {doctor.rating.score}</p>
             </div>
             <div className="pt-6">
                 <p className="text flex items-center gap-1"><FiMapPin /> {doctor.hospital}
@@ -30,7 +31,9 @@ const DocCard = ({ doctor }) => {
                 </p>
                 <p className="secondary font-semibold text-lg">৳{doctor.fee}</p>
                 </div>
+                <Link href={`/appointments/${doctor.id}`}>
                 <Button variant="outline" className={'primary border border-[#004AC6] rounded-2xl w-full bg-[#F8F9FF]'}>View Details</Button>
+                </Link>
             </div>
 
         </div>
