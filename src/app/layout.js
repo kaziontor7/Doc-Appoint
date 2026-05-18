@@ -1,15 +1,21 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import {  Inter, Outfit } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
+  fontWeight: ["400", "500", "600", "700", "800", "900"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  fontWeight: ["400", "500", "600", "700", "800", "900"],
 });
+
 
 export const metadata = {
   title: "Create Next App",
@@ -20,9 +26,16 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      data-theme="light"
+      className={` ${outfit.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className={`${inter.className} ${outfit.variable} min-h-full flex flex-col`}>
+        <Navbar />
+        <div className="bg-[#f8f9ff] grow">
+        {children}
+        </div>
+        <Footer></Footer>
+        </body>
     </html>
   );
 }
