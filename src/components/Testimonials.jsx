@@ -28,7 +28,7 @@ const Testimonials = () => {
 
                     </div>
                 </div>
-                <div className="space-y-3 bg-white rounded-3xl shadow p-6">
+                <div className="space-y-3 bg-white rounded-3xl shadow p-6 flex flex-col">
                     <div className="text-[#F59E0B] flex items-center gap-0.5">
                         <FaStar />
                         <FaStar />
@@ -36,7 +36,7 @@ const Testimonials = () => {
                         <FaStar />
                         <FaStarHalfAlt />
                     </div>
-                    <p className="secondary italic">&quot;I appreciated the minimalist design of the
+                    <p className="secondary italic grow">&quot;I appreciated the minimalist design of the
                         app. It didn&apos;t feel overwhelming like other
                         medical portals. Dr. Chen was fantastic.&quot;</p>
                     <div className="flex items-center gap-3 ">
@@ -51,7 +51,7 @@ const Testimonials = () => {
 
                     </div>
                 </div>
-                <div className="space-y-3 bg-white rounded-3xl shadow p-6">
+                <div className="space-y-3 bg-white rounded-3xl shadow p-6 flex flex-col">
                     <div className="text-[#F59E0B] flex items-center gap-0.5">
                         <FaStar />
                         <FaStar />
@@ -59,7 +59,7 @@ const Testimonials = () => {
                         <FaStar />
                         <FaStar />
                     </div>
-                    <p className="secondary italic">&quot;Very professional service. The interface is
+                    <p className="secondary italic grow">&quot;Very professional service. The interface is
                         clean and finding a specialist took only
                         minutes. Highly recommend DocAppoint.&quot;</p>
                     <div className="flex items-center gap-3 ">

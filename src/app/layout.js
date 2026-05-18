@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
     >
       <body className={`${inter.className} ${outfit.variable} min-h-full flex flex-col`}>
         <Navbar />
-        <div className="bg-[#f8f9ff] grow">
+        <div className="bg-[#f8f9ff] grow px-6 py-13">
         {children}
         </div>
         <Footer></Footer>
