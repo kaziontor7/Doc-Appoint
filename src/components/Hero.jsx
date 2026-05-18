@@ -12,7 +12,7 @@ const Hero = () => {
                     Today</h1>
                 <p className="text text-lg">Experience seamless medical appointments with top-
                     rated professionals. Prioritize your well-being with
-                    DocAppoint's clinical clarity and efficient workflows.</p>
+                    DocAppoint&apos;s clinical clarity and efficient workflows.</p>
                 <Link href={'/appointments'}>
                 <Button variant="" className="text-sm font-medium bg-[#004AC6] rounded-2xl  text-white">Find a Doctor<IoMdArrowRoundForward /></Button>
                 </Link>
