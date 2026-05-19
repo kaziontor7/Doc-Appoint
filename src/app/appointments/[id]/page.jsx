@@ -1,3 +1,4 @@
+import { getDoctors } from '@/data';
 import { Button, Separator } from '@heroui/react';
 import Image from 'next/image';
 import React from 'react';
@@ -8,29 +9,13 @@ import { IoSunnyOutline } from 'react-icons/io5';
 import { LuGraduationCap } from 'react-icons/lu';
 import { MdOutlineLocalHospital } from 'react-icons/md';
 
-const doctor = {
-    "id": "d1",
-    "name": "Dr. Ayesha Rahman",
-    "specialty": "Cardiologist",
-    "image": "https://randomuser.me/api/portraits/women/44.jpg",
-    "experience": "10",
-    "availability": ["09:00 AM - 12:00 PM", "04:00 PM - 07:00 PM"],
-    "description": "Highly experienced cardiologist specializing in heart diseases, preventive care, and patient-centered treatment. Committed to improving cardiovascular health through personalized care and advanced medical techniques.",
-    "education": "MBBS, MD (Cardiology), FCPS",
-    "hospital": "Labaid Cardiac Hospital",
-    "location": "Dhanmondi, Dhaka",
-    "fee": 800,
-    "rating": {
-        "score": 4.8,
-        "totalReviews": 124
-    }
-}
 
 const DoctorDetails = async ({ params }) => {
     const { id } = await params;
+    const doctor = await getDoctors(`http://localhost:5000/appoints/${id}`)
 
     return (
-        <div className='grid grid-cols-3 gap-6'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
             <div>
                 <div className='text-center bg-white rounded-3xl p-6 shadow'>
                     <Image src={doctor.image} alt={doctor.name} height={192} width={192} className='rounded-full mb-6 mx-auto' />
@@ -78,7 +63,7 @@ const DoctorDetails = async ({ params }) => {
                     </div>
                 </div>
             </div>
-            <div className='col-span-2 space-y-6'>
+            <div className='md:col-span-2 space-y-6'>
                 <div className=' bg-white rounded-3xl p-6 shadow'>
                     <h2 className="text-2xl title mb-3">About Dr. {doctor.name.split(" ")[1]}</h2>
                     <p className='text'>{doctor.description}</p>
@@ -87,7 +72,7 @@ const DoctorDetails = async ({ params }) => {
                 <div className=' bg-white rounded-3xl p-6 shadow'>
 
                     <h2 className="text-2xl title mb-3">Availability Today</h2>
-                    <div className='flex items-center gap-3'>
+                    <div className='flex items-center flex-col md:flex-row gap-3'>
                         <div className='flex items-center gap-3 border border-[#C3C6D7] p-3 rounded-2xl w-full'>
                             <div className="bg-[#dbe1ff] w-fit rounded-2xl p-3 ">
                                 <IoSunnyOutline
@@ -100,9 +85,9 @@ const DoctorDetails = async ({ params }) => {
                             </div>
 
                         </div>
-                        <div className='flex items-center gap-3 border border-[#C3C6D7] p-3 rounded-2xl w-full'>
+                        <div className='flex  items-center gap-3 border border-[#C3C6D7] p-3 rounded-2xl w-full'>
                             <div className="bg-[#dbe1ff] w-fit rounded-2xl p-3 ">
-                                <FiMoon 
+                                <FiMoon
 
                                     className="primary   h-5 w-5 " />
 
@@ -116,13 +101,13 @@ const DoctorDetails = async ({ params }) => {
                     </div>
                 </div>
 
-                <div className='bg-[#f2f4ff] p-6 rounded-3xl flex items-center justify-between border border-[#DBE1FF]/50'>
+                <div className='bg-[#f2f4ff] p-6 rounded-3xl flex md:items-center max-md:gap-2 justify-between border border-[#DBE1FF] shadow flex-col md:flex-row '>
                     <div >
-                    <p className='text font-semibold text-xs'>READY TO CONSULT?</p>
-                    <p className='title text-2xl font-semibold'>Secure Your Appointment</p>
+                        <p className='text font-semibold text-xs'>READY TO CONSULT?</p>
+                        <p className='title text-2xl font-semibold'>Secure Your Appointment</p>
                     </div>
                     <Button className={'text-white font-semibold text-lg bg-[#004AC6] rounded-2xl'}><FaRegCalendarAlt />
-Book Appointment</Button>
+                        Book Appointment</Button>
                 </div>
 
             </div>

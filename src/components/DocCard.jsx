@@ -16,7 +16,7 @@ const DocCard = ({ doctor }) => {
                     <div className="">
                         <p className="title text-lg">{doctor.name}</p>
                         <p className="primary">{doctor.specialty}</p>
-                        <p className="text text-sm">{doctor.experience} of experience</p>
+                        <p className="text text-sm">{doctor.experience} years of experience</p>
                     </div>
 
                 </div>
@@ -31,7 +31,7 @@ const DocCard = ({ doctor }) => {
                 </p>
                 <p className="secondary font-semibold text-lg">৳{doctor.fee}</p>
                 </div>
-                <Link href={`/appointments/${doctor.id}`}>
+                <Link href={`/appointments/${doctor._id}`}>
                 <Button variant="outline" className={'primary border border-[#004AC6] rounded-2xl w-full bg-[#F8F9FF]'}>View Details</Button>
                 </Link>
             </div>
