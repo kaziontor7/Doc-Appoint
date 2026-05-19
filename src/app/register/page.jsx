@@ -7,44 +7,26 @@ import Image from "next/image";
 import { Eye, EyeSlash } from "@gravity-ui/icons";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { authClient } from "@/lib/auth-client";
 
 
 const RegisterPage = () => {
     const [isVisible, setIsVisible] = useState(false);
 
-    // const formHandler =(e)=>{
-    //       e.preventDefault()
-    //       const fromData = e.target
-    // }
-//     const {
-//         register,
-//         handleSubmit,
-//     } = useForm();
-
-//     const GoogleSignIn = async () => {
-//   const data = await authClient.signIn.social({
-//     provider: "google",
-//   });
- 
-// };
-
-//     const handleOnSubmit = async (data) => {
-
-//         const { data: res, error } = await authClient.signUp.email({
-//             name: data.name, // required
-//             email: data.email, // required
-//             password: data.password, // required
-//             image: data.photo,
-//             callbackURL: "/login",
-//         });
-//         if (!error) {
-//             alert('Sign in successful go to the home page')
-//         } else {
-//             alert(error.message)
-//         }
-    
-//         console.log(res, error);
-//     }
+    const formHandler = async (e) => {
+        e.preventDefault()
+        const fromData = new FormData(e.target);
+        const values = Object.fromEntries(fromData.entries());
+        console.log(values);
+        const { data, error } = await authClient.signUp.email({
+            name: values.name, // required
+            email: values.email, // required
+            password: values.password, // required
+            image: values.photo,
+            callbackURL: "http://localhost:3000/login",
+        });
+        console.log(data, error);
+    }
     return (
         <div className="w-8/10 mx-auto md:grid md:grid-cols-2 items-center my-6 bg-white shadow rounded-3xl max-md:w-9/10">
             <div className="max-sm:hidden">
@@ -52,7 +34,7 @@ const RegisterPage = () => {
             </div>
 
             <div className="p-10 bg-white rounded-3xl">
-                <Form className="w-full"  >
+                <Form className="w-full" onSubmit={formHandler} >
                     <Fieldset>
                         <Fieldset.Legend className="text-3xl  title pb-2">Register</Fieldset.Legend>
                         <Description className="text text-base">
@@ -65,39 +47,39 @@ const RegisterPage = () => {
                                 <FieldError />
                             </TextField>
                             <TextField isRequired name="email" type="email">
-                               <Label className="font-medium text-sm secondary">Email Address</Label>
-                                    <Input className="bg-[#f8f9ff] placeholder:text-[#6B7280] rounded-2xl  border border-[#C3C6D7] shadow-none" placeholder="Your Email" id="email" />
+                                <Label className="font-medium text-sm secondary">Email Address</Label>
+                                <Input className="bg-[#f8f9ff] placeholder:text-[#6B7280] rounded-2xl  border border-[#C3C6D7] shadow-none" placeholder="Your Email" id="email" />
                                 <FieldError />
                             </TextField>
-                            <TextField  name="photo" type="text">
+                            <TextField name="photo" type="text">
                                 <Label className="font-medium text-sm secondary">Photo URL(Optional)</Label>
                                 <Input className="bg-[#f8f9ff] placeholder:text-[#6B7280] rounded-2xl  border border-[#C3C6D7] shadow-none" placeholder="Photo of Yourself" id="photo" />
                                 <FieldError />
                             </TextField>
-                                      <TextField  name="password" isRequired className="">
-                                  <Label className="font-medium text-sm secondary">Password</Label>
-                                    <InputGroup className="bg-[#f8f9ff] rounded-2xl  border border-[#C3C6D7] shadow-none">
-                                        <InputGroup.Input
-                                            className=" placeholder:text-[#6B7280]"
-                                            type={isVisible ? "text" : "password"}
-                                            placeholder="Your Password"
-                                            id="password"
+                            <TextField name="password" isRequired className="">
+                                <Label className="font-medium text-sm secondary">Password</Label>
+                                <InputGroup className="bg-[#f8f9ff] rounded-2xl  border border-[#C3C6D7] shadow-none">
+                                    <InputGroup.Input
+                                        className=" placeholder:text-[#6B7280]"
+                                        type={isVisible ? "text" : "password"}
+                                        placeholder="Your Password"
+                                        id="password"
 
-                                        />
+                                    />
                                     <InputGroup.Suffix className="pr-0 ">
-                                      <Button
-                                        isIconOnly
-                                        aria-label={isVisible ? "Hide password" : "Show password"}
-                                        size="sm"
-                                        variant="ghost"
-                                        onPress={() => setIsVisible(!isVisible)}
-                                      >
-                                        {isVisible ? <Eye className="size-4" /> : <EyeSlash className="size-4" />}
-                                      </Button>
+                                        <Button
+                                            isIconOnly
+                                            aria-label={isVisible ? "Hide password" : "Show password"}
+                                            size="sm"
+                                            variant="ghost"
+                                            onPress={() => setIsVisible(!isVisible)}
+                                        >
+                                            {isVisible ? <Eye className="size-4" /> : <EyeSlash className="size-4" />}
+                                        </Button>
                                     </InputGroup.Suffix>
-                                  </InputGroup>
-                                  <FieldError />
-                                </TextField>
+                                </InputGroup>
+                                <FieldError />
+                            </TextField>
 
                         </FieldGroup>
                         <Fieldset.Actions>
@@ -109,14 +91,14 @@ const RegisterPage = () => {
                     </Fieldset>
                 </Form>
                 <div className="grid grid-cols-3  mb-4 mt-6  items-center">
-                        <div className="h-px bg-gray-300 mr-2"></div>
-                        <p className="text-center text-[#737686] font-semibold text-xs whitespace-nowrap ">OR CONTINUE WITH</p>
-                        <div className="h-px bg-gray-300 ml-2"></div>
-                    </div>
-               <Button className="w-full  my-1 bg-white  border border-[#C3C6D7] rounded-2xl" variant="ghost" >
-                                       <FcGoogle />
-                                       Google
-                                   </Button>
+                    <div className="h-px bg-gray-300 mr-2"></div>
+                    <p className="text-center text-[#737686] font-semibold text-xs whitespace-nowrap ">OR CONTINUE WITH</p>
+                    <div className="h-px bg-gray-300 ml-2"></div>
+                </div>
+                <Button className="w-full  my-1 bg-white  border border-[#C3C6D7] rounded-2xl" variant="ghost" >
+                    <FcGoogle />
+                    Google
+                </Button>
                 <p className="text text-center pt-2">Already have an account? <Link href={'/login'} className="primary font-semibold "> Login</Link></p>
 
             </div>
