@@ -1,0 +1,87 @@
+"use client";
+import { Envelope } from "@gravity-ui/icons";
+import { Button, Input, Label, Modal, Surface, TextField, ListBox, Select, FieldError } from "@heroui/react";
+import { CgNotes } from "react-icons/cg";
+import { FaRegCalendarAlt } from "react-icons/fa";
+
+const AppointModal = ({doctor}) => {
+    console.log(doctor);
+    return (
+        <div  >
+            <Modal className={' p-0 m-0'}>
+                <Button className={'text-white font-semibold text-lg bg-[#004AC6] rounded-2xl'}><FaRegCalendarAlt />
+                    Book Appointment</Button>
+                <Modal.Backdrop >
+                    <Modal.Container placement="auto"  className={'p-0 m-0'}>
+                        <Modal.Dialog className="sm:max-w-md ">
+                             <Modal.CloseTrigger className="mt-3"/>
+                            <Modal.Header className="">
+                               <div className="flex items-center gap-2">
+                  
+                                    <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
+                                        <CgNotes
+                                            className="size-5" />
+                                    </Modal.Icon>
+                                    <Modal.Heading className="title text-xl">Book Appointment</Modal.Heading>
+                                    
+                                </div>
+                                <p className="mt-1.5 text-sm leading-5 text-muted">
+                                    Fill out the form below and we&apos;ll get back to you.
+                                </p>
+                            </Modal.Header>
+                            <Modal.Body className="p-6">
+                                <Surface variant="default">
+                                    <form className="flex flex-col gap-4">
+                                        <TextField  className="w-full " name="name" type="text" variant="secondary">
+                                            <Label>Doctor Name</Label>
+                                            <Input value={doctor.name} className={'bg-[#edf3ff] border border-[#C3C6D7]'} disabled placeholder="Enter Doctor Name" />
+                                        </TextField>
+                                        <TextField isRequired className="w-full" name="name" type="text" variant="secondary">
+                                            <Label>Your Name</Label>
+                                            <Input className={'bg-white border border-[#C3C6D7]'} placeholder="Enter Your Name" />
+                                            <FieldError />
+                                        </TextField>
+                                        <TextField isRequired className="w-full" name="phone" type="tel" variant="secondary">
+                                            <Label>Phone</Label>
+                                            <Input className={'bg-white border border-[#C3C6D7]'}  placeholder="Enter your phone number" />
+                                            <FieldError />
+                                        </TextField>
+                                        <Select isRequired className="w-full  " placeholder="Select one">
+                                            <Label>Session</Label>
+                                            <Select.Trigger className={'border border-[#C3C6D7]'}>
+                                                <Select.Value />
+                                                <Select.Indicator />
+                                            </Select.Trigger>
+                                            <Select.Popover className={''}>
+                                                <ListBox >
+                                                    {doctor.availability.map((session, index) => (
+                                                        <ListBox.Item key={index} id={session} textValue={session}>
+                                                            {session}
+                                                        </ListBox.Item>
+                                                    ))}
+                                                </ListBox>
+                                            </Select.Popover>
+                                            <FieldError />
+                                        </Select>
+                                         <Modal.Footer>
+                                
+                                        <Button slot="close" variant="secondary">
+                                    Cancel
+                                </Button>
+                                <Button type="submit" >
+                                    Book
+                                </Button>
+                            </Modal.Footer>
+                                    </form>
+                                </Surface>
+                            </Modal.Body>
+                           
+                        </Modal.Dialog>
+                    </Modal.Container>
+                </Modal.Backdrop>
+            </Modal>
+        </div>
+    );
+};
+
+export default AppointModal;

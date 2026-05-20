@@ -1,3 +1,4 @@
+import AppointModal from '@/components/AppointModal';
 import { getDoctors } from '@/data';
 import { Button, Separator } from '@heroui/react';
 import Image from 'next/image';
@@ -106,8 +107,7 @@ const DoctorDetails = async ({ params }) => {
                         <p className='text font-semibold text-xs'>READY TO CONSULT?</p>
                         <p className='title text-2xl font-semibold'>Secure Your Appointment</p>
                     </div>
-                    <Button className={'text-white font-semibold text-lg bg-[#004AC6] rounded-2xl'}><FaRegCalendarAlt />
-                        Book Appointment</Button>
+                    <AppointModal doctor={doctor} />
                 </div>
 
             </div>
