@@ -7,7 +7,7 @@ import { CgNotes } from "react-icons/cg";
 import { FaRegCalendarAlt } from "react-icons/fa";
 
 const AppointModal = ({ doctor }) => {
-    console.log(doctor);
+    // console.log(doctor);
     const userData = authClient.useSession()
     const user = userData?.data?.user
 
@@ -23,12 +23,22 @@ const AppointModal = ({ doctor }) => {
             phone: values.phone,
             session: values.session,
             date: values.date,
-            availability: doctor.availability
-
+            availability: doctor.availability,
+            specialty: doctor.specialty,
+            userId: user?.id
         }
-        console.log(appointmentData);
+        // console.log(appointmentData);
+        const res = await fetch('http://localhost:5000/bookings', {
+         method: 'POST',
+         headers:{
+            'content-type': 'application/json'
+         },
+         body: JSON.stringify(appointmentData)
 
-    }
+    })
+      const data = await res.json();
+        console.log(data);
+}
     return (
         <div  >
             <Modal className={' p-0 m-0'}>
@@ -126,7 +136,7 @@ const AppointModal = ({ doctor }) => {
                                             <Button slot="close" variant="secondary">
                                                 Cancel
                                             </Button>
-                                            <Button type="submit" >
+                                            <Button  type="submit" slot="close" >
                                                 Book
                                             </Button>
                                         </Modal.Footer>
