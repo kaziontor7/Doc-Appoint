@@ -1,34 +1,33 @@
 "use client"
 import { Button, Description, FieldError, FieldGroup, Fieldset, Form, Input, InputGroup, Label, TextField } from "@heroui/react";
 import Link from "next/link";
-import { FaArrowRight, FaGoogle } from "react-icons/fa";
 import Image from "next/image";
 
 import { Eye, EyeSlash } from "@gravity-ui/icons";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { authClient } from "@/lib/auth-client";
 
 const LoginPage = () => {
     const [isVisible, setIsVisible] = useState(false);
-    // const GoogleSignIn = async () => {
-    //     const data = await authClient.signIn.social({
-    //         provider: "google",
-    //     });
+     const formHandler = async (e) => {
+            e.preventDefault()
+            const fromData = new FormData(e.target);
+            const values = Object.fromEntries(fromData.entries());
+            console.log(values);
+            const { data, error } = await authClient.signIn.email({
+                email: values.email, // required
+                password: values.password, // required
+                callbackURL: "/",
+            });
+            console.log(data, error);
+        }
 
-    // };
-    // const {
-    //     register,
-    //     handleSubmit,
-    // } = useForm();
-    // const handleOnSubmit = async (data) => {
-    //     const { data: res, error } = await authClient.signIn.email({
-    //         email: data.email, // required
-    //         password: data.password, // required
-    //         rememberMe: true,
-    //         callbackURL: "/",
-    //     });
-
-    // }
+        const googleSignIn = async () => {
+  const data = await authClient.signIn.social({
+    provider: "google",
+  });
+};
     return (
         <div>
             <div className="w-8/10 mx-auto md:grid md:grid-cols-2 items-center my-6 bg-white shadow rounded-3xl max-md:w-9/10">
@@ -37,7 +36,7 @@ const LoginPage = () => {
                 </div>
 
                 <div className="p-10 bg-white rounded-3xl order-1">
-                    <Form className="w-full"  >
+                    <Form className="w-full" onSubmit={formHandler}>
                         <Fieldset>
                             <Fieldset.Legend className="text-3xl  title pb-2">Welcome Back</Fieldset.Legend>
                             <Description className="text text-base">
@@ -89,7 +88,7 @@ const LoginPage = () => {
                         <p className="text-center text-[#737686] font-semibold text-xs whitespace-nowrap ">OR CONTINUE WITH</p>
                         <div className="h-px bg-gray-300 ml-2"></div>
                     </div>
-                    <Button className="w-full  my-1 bg-white  border border-[#C3C6D7] rounded-2xl" variant="ghost" >
+                    <Button onClick={googleSignIn} className="w-full  my-1 bg-white  border border-[#C3C6D7] rounded-2xl" variant="ghost" >
                         <FcGoogle />
                         Google
                     </Button>

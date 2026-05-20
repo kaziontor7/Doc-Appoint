@@ -27,6 +27,12 @@ const RegisterPage = () => {
         });
         console.log(data, error);
     }
+
+    const googleSignIn = async () => {
+  const data = await authClient.signIn.social({
+    provider: "google",
+  });
+};
     return (
         <div className="w-8/10 mx-auto md:grid md:grid-cols-2 items-center my-6 bg-white shadow rounded-3xl max-md:w-9/10">
             <div className="max-sm:hidden">
@@ -95,7 +101,7 @@ const RegisterPage = () => {
                     <p className="text-center text-[#737686] font-semibold text-xs whitespace-nowrap ">OR CONTINUE WITH</p>
                     <div className="h-px bg-gray-300 ml-2"></div>
                 </div>
-                <Button className="w-full  my-1 bg-white  border border-[#C3C6D7] rounded-2xl" variant="ghost" >
+                <Button onClick={googleSignIn} className="w-full  my-1 bg-white  border border-[#C3C6D7] rounded-2xl" variant="ghost" >
                     <FcGoogle />
                     Google
                 </Button>
