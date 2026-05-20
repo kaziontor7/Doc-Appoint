@@ -1,11 +1,9 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import { Envelope } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField, ListBox, Select, FieldError, Calendar, DateField, DatePicker } from "@heroui/react";
 import { parseDate } from "@internationalized/date";
-import { CgNotes } from "react-icons/cg";
-import { FaRegCalendarAlt } from "react-icons/fa";
+
 import { FiEdit } from "react-icons/fi";
 
 const UpdateBooking = ({booking}) => {

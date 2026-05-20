@@ -4,6 +4,7 @@ import { CiCalendar } from "react-icons/ci";
 import { IoMdTime } from "react-icons/io";
 import { IoCallOutline, IoPersonOutline } from "react-icons/io5";
 import UpdateBooking from "./UpdateBooking";
+import DeleteAlert from "./DeleteAlert";
 const BookingCard = ({ booking }) => {
     return (
         <div className="bg-white rounded-4xl p-6 shadow">
@@ -49,7 +50,7 @@ const BookingCard = ({ booking }) => {
                 </div>
             </div>
             <div className="flex items-center justify-end gap-4 mt-6">
-                <Button variant="outline" className={'text-[#BA1A1A] border border-[#BA1A1A]/30 font-medium text-sm rounded-2xl'}>Delete</Button>
+                <DeleteAlert booking={booking}></DeleteAlert>
                <UpdateBooking booking={booking}></UpdateBooking>
             </div>
         </div>
