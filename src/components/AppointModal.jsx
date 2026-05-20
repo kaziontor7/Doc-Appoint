@@ -2,7 +2,7 @@
 
 import { authClient } from "@/lib/auth-client";
 import { Envelope } from "@gravity-ui/icons";
-import { Button, Input, Label, Modal, Surface, TextField, ListBox, Select, FieldError } from "@heroui/react";
+import { Button, Input, Label, Modal, Surface, TextField, ListBox, Select, FieldError, Calendar, DateField, DatePicker } from "@heroui/react";
 import { CgNotes } from "react-icons/cg";
 import { FaRegCalendarAlt } from "react-icons/fa";
 
@@ -10,14 +10,23 @@ const AppointModal = ({ doctor }) => {
     console.log(doctor);
     const userData = authClient.useSession()
     const user = userData?.data?.user
-    console.log(user);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
         const values = Object.fromEntries(formData.entries());
-        console.log(values);
+        const appointmentData = {
+            doctorName: doctor.name,
+            doctorImage: doctor.image,
+            patientName: values.name,
+            phone: values.phone,
+            session: values.session,
+            date: values.date,
+            availability: doctor.availability
+
+        }
+        console.log(appointmentData);
 
     }
     return (
@@ -46,7 +55,7 @@ const AppointModal = ({ doctor }) => {
                             <Modal.Body className="p-6">
                                 <Surface variant="default">
                                     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                                        <TextField className="w-full " name="doctorName" type="text" variant="secondary">
+                                        <TextField className="w-full " name="doctor" type="text" variant="secondary">
                                             <Label>Doctor Name</Label>
                                             <Input value={doctor.name} className={'bg-[#edf3ff] border border-[#C3C6D7]'} disabled placeholder="Enter Doctor Name" />
                                         </TextField>
@@ -60,6 +69,41 @@ const AppointModal = ({ doctor }) => {
                                             <Input className={'bg-white border border-[#C3C6D7]'} placeholder="Enter your phone number" />
                                             <FieldError />
                                         </TextField>
+                                        <DatePicker isRequired className="" name="date">
+                                            <Label>Date</Label>
+                                            <DateField.Group fullWidth className={'border border-[#C3C6D7]'}>
+                                                <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
+                                                <DateField.Suffix>
+                                                    <DatePicker.Trigger>
+                                                        <DatePicker.TriggerIndicator />
+                                                    </DatePicker.Trigger>
+                                                </DateField.Suffix>
+                                            </DateField.Group>
+                                            <DatePicker.Popover>
+                                                <Calendar aria-label="Event date" >
+                                                    <Calendar.Header>
+                                                        <Calendar.YearPickerTrigger >
+                                                            <Calendar.YearPickerTriggerHeading />
+                                                            <Calendar.YearPickerTriggerIndicator />
+                                                        </Calendar.YearPickerTrigger>
+                                                        <Calendar.NavButton slot="previous" />
+                                                        <Calendar.NavButton slot="next" />
+                                                    </Calendar.Header>
+                                                    <Calendar.Grid>
+                                                        <Calendar.GridHeader>
+                                                            {(day) => <Calendar.HeaderCell>{day}</Calendar.HeaderCell>}
+                                                        </Calendar.GridHeader>
+                                                        <Calendar.GridBody>{(date) => <Calendar.Cell date={date} />}</Calendar.GridBody>
+                                                    </Calendar.Grid>
+                                                    <Calendar.YearPickerGrid>
+                                                        <Calendar.YearPickerGridBody>
+                                                            {({ year }) => <Calendar.YearPickerCell year={year} />}
+                                                        </Calendar.YearPickerGridBody>
+                                                    </Calendar.YearPickerGrid>
+                                                </Calendar>
+                                            </DatePicker.Popover>
+                                            <FieldError />
+                                        </DatePicker>
                                         <Select name="session" isRequired className="w-full  " placeholder="Select one">
                                             <Label>Session</Label>
                                             <Select.Trigger className={'border border-[#C3C6D7]'}>

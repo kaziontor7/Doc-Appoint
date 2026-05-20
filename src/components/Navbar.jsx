@@ -67,7 +67,7 @@ const Navbar = () => {
                 </ul>
 
             </div>
-            <div className="flex items-center md:gap-3 ">
+            <div className="flex items-center md:gap-3 gap-2 ">
                 {
                     user ? <> <Avatar className="border-[#C3C6D7] border">
         <Avatar.Image alt={user.name} src={user.image} />
