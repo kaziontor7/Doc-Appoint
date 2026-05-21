@@ -2,13 +2,12 @@
 
 import { revalidateDashboard } from "@/actions";
 import { authClient } from "@/lib/auth-client";
-import { Button, Input, Label, Modal, Surface, TextField, ListBox, Select, FieldError, Calendar, DateField, DatePicker } from "@heroui/react";
+import { Button, Input, Label, Modal, Surface, TextField, ListBox, Select, FieldError, Calendar, DateField, DatePicker, toast } from "@heroui/react";
 import { parseDate } from "@internationalized/date";
 
 import { FiEdit } from "react-icons/fi";
 
 const UpdateBooking = ({ booking }) => {
-    console.log(booking);
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -27,10 +26,16 @@ const UpdateBooking = ({ booking }) => {
             }
         )
         const final = await res.json()
-        console.log(final);
         if (final.acknowledged
         ) {
           await revalidateDashboard()
+          toast.success("Your appointment has been updated", {
+              actionProps: {
+                children: "Updated",
+                className: "bg-success text-white",
+              },
+              description: "If you have any questions or need further assistance, please contact our support team.",
+            })
         }
     };
     return (

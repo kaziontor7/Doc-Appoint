@@ -2,12 +2,11 @@
 
 import { authClient } from "@/lib/auth-client";
 import { Envelope } from "@gravity-ui/icons";
-import { Button, Input, Label, Modal, Surface, TextField, ListBox, Select, FieldError, Calendar, DateField, DatePicker } from "@heroui/react";
+import { Button, Input, Label, Modal, Surface, TextField, ListBox, Select, FieldError, Calendar, DateField, DatePicker, toast } from "@heroui/react";
 import { CgNotes } from "react-icons/cg";
 import { FaRegCalendarAlt } from "react-icons/fa";
 
 const AppointModal = ({ doctor }) => {
-    // console.log(doctor);
     const userData = authClient.useSession()
     const user = userData?.data?.user
 
@@ -27,7 +26,6 @@ const AppointModal = ({ doctor }) => {
             specialty: doctor.specialty,
             userId: user?.id
         }
-        // console.log(appointmentData);
         const res = await fetch('http://localhost:5000/bookings', {
          method: 'POST',
          headers:{
@@ -37,7 +35,16 @@ const AppointModal = ({ doctor }) => {
 
     })
       const data = await res.json();
-        console.log(data);
+        if(data.acknowledged
+        ) {
+          toast.success("You have booked an appointment", {
+              actionProps: {
+                children: "Booked",
+                className: "bg-success text-white",
+              },
+              description: "You can view your appointment details and manage your bookings in the dashboard.",
+            })
+        }
 }
     return (
         <div  >

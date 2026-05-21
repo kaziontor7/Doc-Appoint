@@ -2,7 +2,7 @@
 
 import { revalidateDashboard } from "@/actions";
 import { authClient } from "@/lib/auth-client";
-import { Button, Input, Label, Modal, Surface, TextField, ListBox, Select, FieldError, Calendar, DateField, DatePicker } from "@heroui/react";
+import { Button, Input, Label, Modal, Surface, TextField, ListBox, Select, FieldError, Calendar, DateField, DatePicker, toast } from "@heroui/react";
 import { parseDate } from "@internationalized/date";
 
 import { FiEdit } from "react-icons/fi";
@@ -12,13 +12,13 @@ const UpdateProfile = ({ user }) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const values = Object.fromEntries(formData.entries());
-        console.log(values);
       const result =  await authClient.updateUser({
             image: values.image,
             name: values.name,
         })
         if(result.data){
             await revalidateDashboard();
+            toast.success("Your profile has been updated")
         }
        
     }

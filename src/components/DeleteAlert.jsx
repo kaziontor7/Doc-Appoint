@@ -1,6 +1,6 @@
 "use client";
 import { revalidateDashboard } from "@/actions";
-import {AlertDialog, Button} from "@heroui/react";
+import {AlertDialog, Button, toast} from "@heroui/react";
 
 const DeleteAlert = ({ booking }) => {
   const deleteHandler =async ()=>{
@@ -14,6 +14,13 @@ const DeleteAlert = ({ booking }) => {
        if (data.acknowledged
                ) {
                  await revalidateDashboard()
+                 toast.danger("Your appointment has been deleted", {
+                     actionProps: {
+                       children: "Deleted",
+                       className: "bg-danger text-danger-foreground",
+                     },
+                     description: "If you have any questions or need further assistance, please contact our support team.",
+                   })
                }
   }
     return (

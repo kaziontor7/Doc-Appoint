@@ -1,5 +1,5 @@
 'use client'
-import { Button, Description, FieldError, FieldGroup, Fieldset, Form, Input, InputGroup, Label, TextField } from "@heroui/react";
+import { Button, Description, FieldError, FieldGroup, Fieldset, Form, Input, InputGroup, Label, TextField, toast } from "@heroui/react";
 import Link from "next/link";
 import { FaArrowRight, FaGoogle } from "react-icons/fa";
 
@@ -8,16 +8,18 @@ import { Eye, EyeSlash } from "@gravity-ui/icons";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
+
 
 
 const RegisterPage = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const [error, setError] = useState(null);
 
     const formHandler = async (e) => {
         e.preventDefault()
         const fromData = new FormData(e.target);
         const values = Object.fromEntries(fromData.entries());
-        console.log(values);
         const { data, error } = await authClient.signUp.email({
             name: values.name, // required
             email: values.email, // required
@@ -25,14 +27,28 @@ const RegisterPage = () => {
             image: values.photo,
             callbackURL: "http://localhost:3000/login",
         });
-        console.log(data, error);
+        if (data) {
+            toast.success("Registration successful", {
+                actionProps: {
+                    children: "Continue",
+                    className: "bg-success text-white",
+                },
+                description: "Welcome! You have successfully registered for your healthcare portal.",
+            })
+            redirect("/")
+        }
+        if (error) {
+            setError(error.message)
+        } else {
+            setError(null)
+        }
     }
 
     const googleSignIn = async () => {
-  const data = await authClient.signIn.social({
-    provider: "google",
-  });
-};
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+    };
     return (
         <div className="w-8/10 mx-auto md:grid md:grid-cols-2 items-center my-6 bg-white shadow rounded-3xl max-md:w-9/10">
             <div className="max-sm:hidden">
@@ -46,6 +62,7 @@ const RegisterPage = () => {
                         <Description className="text text-base">
                             Create your patient profile to get started.
                         </Description>
+                        {error && <p className="text-red-500 text-sm bg-red-100 p-2 rounded-md">{error}</p>}
                         <FieldGroup>
                             <TextField isRequired name="name" type="text">
                                 <Label className="font-medium text-sm secondary">Full Name</Label>
@@ -62,7 +79,18 @@ const RegisterPage = () => {
                                 <Input className="bg-[#f8f9ff] placeholder:text-[#6B7280] rounded-2xl  border border-[#C3C6D7] shadow-none" placeholder="Photo of Yourself" id="photo" />
                                 <FieldError />
                             </TextField>
-                            <TextField name="password" isRequired className="">
+                            <TextField name="password" isRequired className="" minLength={6} validate={(value) => {
+                                if (value.length < 6) {
+                                    return "Password must be at least 6 characters";
+                                }
+                                if (!/[A-Z]/.test(value)) {
+                                    return "Password must contain at least one uppercase letter";
+                                }
+                                if (!/[a-z]/.test(value)) {
+                                    return "Password must contain at least one lowercase letter";
+                                }
+                                return null;
+                            }}>
                                 <Label className="font-medium text-sm secondary">Password</Label>
                                 <InputGroup className="bg-[#f8f9ff] rounded-2xl  border border-[#C3C6D7] shadow-none">
                                     <InputGroup.Input

@@ -14,7 +14,6 @@ const DashboardPage =async () => {
     headers: await headers() 
 })
   const user = session?.user
-  console.log(user);
     const res = await fetch(`http://localhost:5000/bookings/${user?.id}`);
     const bookings = await res.json();
     

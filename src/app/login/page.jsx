@@ -1,5 +1,5 @@
 "use client"
-import { Button, Description, FieldError, FieldGroup, Fieldset, Form, Input, InputGroup, Label, TextField } from "@heroui/react";
+import { Button, Description, FieldError, FieldGroup, Fieldset, Form, Input, InputGroup, Label, TextField, toast } from "@heroui/react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -7,20 +7,34 @@ import { Eye, EyeSlash } from "@gravity-ui/icons";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 const LoginPage = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const [error, setError] = useState(null);
      const formHandler = async (e) => {
             e.preventDefault()
             const fromData = new FormData(e.target);
             const values = Object.fromEntries(fromData.entries());
-            console.log(values);
             const { data, error } = await authClient.signIn.email({
                 email: values.email, // required
                 password: values.password, // required
-                callbackURL: "/",
             });
-            console.log(data, error);
+            if(data){
+                toast.success("Login successful", {
+                    actionProps: {
+                      children: "Continue",
+                        className: "bg-success text-white",
+                    },
+                    description: "Welcome back! You have successfully logged in to your healthcare portal.",
+                })
+                redirect("/")
+            }
+            if(error) {
+                setError(error.message)
+            } else {         
+                       setError(null)
+            }
         }
 
         const googleSignIn = async () => {
@@ -42,6 +56,7 @@ const LoginPage = () => {
                             <Description className="text text-base">
                                 Log in to your healthcare portal to continue.
                             </Description>
+                            {error && <p className="text-red-500 text-sm bg-red-100 p-2 rounded-md">{error}</p>}
                             <FieldGroup>
                                 <TextField isRequired name="email" type="email">
                                     <Label className="font-medium text-sm secondary">Email Address</Label>
@@ -49,7 +64,18 @@ const LoginPage = () => {
                                     <FieldError />
                                 </TextField>
 
-                                <TextField name="password" isRequired className="">
+                                <TextField name="password" isRequired className="" minLength={6} validate={(value) => {
+                                if (value.length < 6) {
+                                    return "Password must be at least 6 characters";
+                                }
+                                if (!/[A-Z]/.test(value)) {
+                                    return "Password must contain at least one uppercase letter";
+                                }
+                                if (!/[a-z]/.test(value)) {
+                                    return "Password must contain at least one lowercase letter";
+                                }
+                                return null;
+                            }}>
                                     <Label className="font-medium text-sm secondary">Password</Label>
                                     <InputGroup className="bg-[#f8f9ff] shadow-none rounded-2xl  border border-[#C3C6D7]">
                                         <InputGroup.Input

@@ -1,15 +1,17 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
-.title{
-  font-family: 'outfit', sans-serif;
-   color: #0B1C30;
-   font-weight : 600 ;
-}
+
 .main-title{
   font-family: 'outfit', sans-serif;
    color: #0B1C30;
    font-weight : 700 ;
+}
+
+.title{
+  font-family: 'outfit', sans-serif;
+   color: #0B1C30;
+   font-weight : 600 ;
 }
 
 .primary{
