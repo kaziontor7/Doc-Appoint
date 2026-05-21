@@ -50,12 +50,12 @@ const RegisterPage = () => {
         });
     };
     return (
-        <div className="w-8/10 mx-auto md:grid md:grid-cols-2 items-center my-6 bg-white shadow rounded-3xl max-md:w-9/10">
-            <div className="max-sm:hidden">
+        <div className="md:w-8/10 mx-auto md:grid md:grid-cols-2 items-center md:my-6 my-3 bg-white shadow rounded-3xl ">
+            <div className="max-md:hidden">
                 <Image src={"https://lh3.googleusercontent.com/aida-public/AB6AXuAB5rflI-5J54JDBbsoFo545P1eWkIPKh_SbjbLXrL7ABzBQH9XYyc3tQi1HXjM_rBmT2R9oXdKk1m5cODUDaqkOnQ0e5CHwHbSdjck1LkNP2y7bRCqhSjy5nnInfWXSoos5gY-lUDLM_EnT4_msJpuospyQ6Jl9jyj7R5cpUVjzxSGXTQUMspO22HQjzMz2v151OPIIWWjN86mF1w-RFNEMX0qFHI60Wdcc3gSh6PzjIeHZD2N6Rl-Wd69pvgQ6C0MspRSDGy_O5xU"} alt="cool cow" height={300} width={650} className="rounded-l-3xl w-fill h-full"></Image>
             </div>
 
-            <div className="p-10 bg-white rounded-3xl">
+            <div className="md:p-10 p-6 bg-white rounded-3xl">
                 <Form className="w-full" onSubmit={formHandler} >
                     <Fieldset>
                         <Fieldset.Legend className="text-3xl  title pb-2">Register</Fieldset.Legend>

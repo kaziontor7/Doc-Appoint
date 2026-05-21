@@ -51,7 +51,7 @@ const DashboardPage =async () => {
                 </Tabs.ListContainer>
 
                 <div className="">
-                    <Tabs.Panel className="px-4" id="bookings">
+                    <Tabs.Panel className="md:px-4" id="bookings">
                         <h3 className="title text-3xl">My Bookings</h3>
                         <p className="text">Manage your upcoming and past medical appointments.</p>
                         {
@@ -64,10 +64,10 @@ const DashboardPage =async () => {
                         }
                         
                     </Tabs.Panel>
-                    <Tabs.Panel className="px-4" id="profile">
+                    <Tabs.Panel className="md:px-4" id="profile">
                         <h3 className="title text-3xl">My Profile</h3>
                         <p className="text">Manage your profile information.</p>
-                       <div className=" w-sm bg-white rounded-3xl shadow-lg border border-gray-100 p-8 flex flex-col items-center mt-6">
+                       <div className="w-full md:w-sm bg-white rounded-3xl shadow-lg border border-gray-100 p-8 flex flex-col items-center mt-6">
   <div className="relative mb-5">
     <Image 
       src={user?.image || profile} 
