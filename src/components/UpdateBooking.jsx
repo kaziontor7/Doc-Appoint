@@ -18,10 +18,13 @@ const UpdateBooking = ({ booking }) => {
             session: values.session,
             date: values.date,
         }
+        const {data: tokenData} = await authClient.token()
         const res = await fetch(`http://localhost:5000/bookings/${booking._id}`,
             {
                 method: 'PATCH',
-                headers: { 'content-type': 'application/json' },
+                headers: { 'content-type': 'application/json',
+                authorization: `Bearer ${tokenData?.token}`
+                 },
                 body: JSON.stringify(data)
             }
         )

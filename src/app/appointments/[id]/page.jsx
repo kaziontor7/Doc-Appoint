@@ -1,6 +1,8 @@
 import AppointModal from '@/components/AppointModal';
 import { getDoctors } from '@/data';
+import { auth } from '@/lib/auth';
 import { Button, Separator } from '@heroui/react';
+import { headers } from 'next/headers';
 import Image from 'next/image';
 import React from 'react';
 import { FaRegCalendarAlt, FaRegStar } from 'react-icons/fa';
@@ -10,11 +12,22 @@ import { IoSunnyOutline } from 'react-icons/io5';
 import { LuGraduationCap } from 'react-icons/lu';
 import { MdOutlineLocalHospital } from 'react-icons/md';
 
+export const metadata = {
+  title: 'Doctor-Details',
+}
 
 const DoctorDetails = async ({ params }) => {
     const { id } = await params;
-    const doctor = await getDoctors(`http://localhost:5000/appoints/${id}`)
-
+    const {token} = await auth.api.getToken({
+        headers: await headers()
+    })
+    const res = await fetch(`http://localhost:5000/appoints/${id}`,{
+        headers:{
+            authorization: `Bearer ${token}`,
+        }
+    })
+    const doctor= await res.json()
+    
     return (
         <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
             <div>

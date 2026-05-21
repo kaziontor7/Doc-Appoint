@@ -1,13 +1,18 @@
 "use client";
 import { revalidateDashboard } from "@/actions";
+import { authClient } from "@/lib/auth-client";
 import {AlertDialog, Button, toast} from "@heroui/react";
 
 const DeleteAlert = ({ booking }) => {
   const deleteHandler =async ()=>{
+       const {data: tokenData} = await authClient.token()
        const res = await fetch(`http://localhost:5000/bookings/${booking._id}`,
         {
           method: 'DELETE',
-          headers:{ 'content-type' : 'application/json'}
+          headers:{ 'content-type' : 'application/json',
+          authorization: `Bearer ${tokenData?.token}`
+
+          }
         }
        )
        const data = await res.json()

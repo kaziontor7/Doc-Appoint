@@ -26,10 +26,13 @@ const AppointModal = ({ doctor }) => {
             specialty: doctor.specialty,
             userId: user?.id
         }
+        const {data: tokenData} = await authClient.token()
+        
         const res = await fetch('http://localhost:5000/bookings', {
          method: 'POST',
          headers:{
-            'content-type': 'application/json'
+            'content-type': 'application/json',
+            authorization: `Bearer ${tokenData?.token}`
          },
          body: JSON.stringify(appointmentData)
 

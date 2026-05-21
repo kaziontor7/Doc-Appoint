@@ -76,7 +76,7 @@ const Navbar = () => {
             <div className="flex items-center md:gap-3 gap-2 ">
                 {
                     user ? <> <Avatar className="border-[#C3C6D7] border">
-        <Avatar.Image alt={user.name} src={user.image} />
+        <Avatar.Image referrerPolicy="no-referrer" alt={user.name} src={user?.image} />
         <Avatar.Fallback className="bg-[#eff4ff]  ">{user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}</Avatar.Fallback>
       </Avatar>
             

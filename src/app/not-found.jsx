@@ -27,7 +27,7 @@ const NotFoundPage = () => {
                     The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
                 </p>
 
-                {/* Refined Action Buttons */}
+                
                 <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
                     <Button 
                         onPress={() => router.back()}

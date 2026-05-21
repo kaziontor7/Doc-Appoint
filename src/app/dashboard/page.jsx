@@ -8,14 +8,23 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdPerson } from "react-icons/md";
 import profile from "../../../public/profile.png"
 
-
+export const metadata = {
+  title: 'Doc-Appoint Dashboard',
+}
 
 const DashboardPage =async () => {
     const session = await auth.api.getSession({
     headers: await headers() 
 })
+  const {token} = await auth.api.getToken({
+          headers: await headers()
+      })
   const user = session?.user
-    const res = await fetch(`http://localhost:5000/bookings/${user?.id}`);
+    const res = await fetch(`http://localhost:5000/bookings/${user?.id}`,{
+         headers:{
+                    authorization: `Bearer ${token}`,
+                }
+    });
     const bookings = await res.json();
     
     return (
