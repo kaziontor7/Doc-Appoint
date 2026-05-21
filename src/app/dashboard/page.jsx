@@ -6,6 +6,7 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdPerson } from "react-icons/md";
+import profile from "../../../public/profile.png"
 
 
 
@@ -44,30 +45,46 @@ const DashboardPage =async () => {
                     <Tabs.Panel className="px-4" id="bookings">
                         <h3 className="title text-3xl">My Bookings</h3>
                         <p className="text">Manage your upcoming and past medical appointments.</p>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
+                        {
+                            bookings.length ===  0 ? <div className="flex flex-col items-center gap-4 mt-6 bg-white py-20 px-10 rounded-4xl shadow">
+                                <FaRegCalendarAlt className="text-[#004AC6] text-6xl" />
+                                <p className="text text-lg text-center">You have no bookings yet. Start by booking an appointment with your doctor.</p>
+                            </div>  : <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
                             {bookings.map((booking,i) => <BookingCard key={i} booking={booking}></BookingCard>)}
                         </div>
+                        }
+                        
                     </Tabs.Panel>
                     <Tabs.Panel className="px-4" id="profile">
                         <h3 className="title text-3xl">My Profile</h3>
                         <p className="text">Manage your profile information.</p>
-                        <div className="bg-white p-6 rounded-4xl shadow mt-2  gap-6 max-w-sm">
-                         <div>
-                           <Image src={user?.image} alt={user?.name} height={64} width={64} className="rounded-full mx-auto mb-4 border-2 border-[#00174B]"></Image>
-                         </div>
-                         <  div className="mt-4">
-                            <div className=" text-sm font-medium secondary border-t border-[#C3C6D7]/40 pt-4 space-y-2">
-                            <div className="flex items-center gap-7 overflow-hidden  justify-between">
-                            <p>Name : <span className="text">{user?.name}</span></p>
-                            <p className="">Patient ID : <span className="text">{user?.id.slice(0, 8)}</span></p>
-                            </div>
-                            <p>Email : <span className="text">{user?.email}</span></p>
-                            </div>
-                         </div>
-                         <div className="flex justify-end">
-                            <UpdateProfile user={user}></UpdateProfile>
-                         </div>
-                        </div>
+                       <div className=" w-sm bg-white rounded-3xl shadow-lg border border-gray-100 p-8 flex flex-col items-center mt-6">
+  <div className="relative mb-5">
+    <Image 
+      src={user?.image || profile} 
+      alt={user?.name || "User avatar"} 
+      height={120} 
+      width={120} 
+      className="rounded-full object-cover border-4 border-[#00174B]/10 shadow-sm"
+    />
+  </div>
+
+  <div className="text-center w-full mb-6">
+    <h2 className="text-xl font-bold secondary mb-1">{user?.name}</h2>
+    <p className="text-sm font-medium text-gray-500">
+      Patient ID: <span className="secondary">{user?.id?.slice(0, 8)}</span>
+    </p>
+  </div>
+  <div className="w-full bg-[#f8f9ff] rounded-2xl p-4 mb-6 text-sm text-gray-600 border border-gray-200 ">
+    <div className="flex flex-col space-y-1">
+      <span className="font-medium text-gray-400 uppercase text-xs tracking-wider">Email Address</span>
+      <span className="font-semibold secondary wrap-break-word">{user?.email}</span>
+    </div>
+  </div>
+  <div className="w-full flex justify-center mt-auto">
+    <UpdateProfile user={user} />
+  </div>
+</div>
                     </Tabs.Panel>
 
                 </div>

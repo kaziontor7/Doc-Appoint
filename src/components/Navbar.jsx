@@ -4,13 +4,19 @@ import { Bars, Pencil, SquarePlus, TrashBin } from "@gravity-ui/icons";
 import { Avatar, Description, Dropdown, Header, Kbd, Label, Separator } from "@heroui/react";
 import { Button } from "@heroui/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { FaBriefcaseMedical } from "react-icons/fa";
 
 const Navbar = () => {
     const pathname = usePathname();
     const userData = authClient.useSession()
         const user = userData?.data?.user
+    const logoutHandler = async () => {
+        await authClient.signOut()
+        redirect('/')
+        
+    }
+
     
     return (
         <div className=" bg-[#f8f9ff] h-16 md:px-6 px-1.5 flex items-center justify-between border-b-[1.5px] border-[#C3C6D7]/50 ">
@@ -71,10 +77,10 @@ const Navbar = () => {
                 {
                     user ? <> <Avatar className="border-[#C3C6D7] border">
         <Avatar.Image alt={user.name} src={user.image} />
-        <Avatar.Fallback className="bg-[#eff4ff]  ">{user.name.split(' ').map(n => n[0]).join('')}</Avatar.Fallback>
+        <Avatar.Fallback className="bg-[#eff4ff]  ">{user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}</Avatar.Fallback>
       </Avatar>
             
-                    <Button onClick={async()=>await authClient.signOut()} variant="" className="text-sm font-medium bg-[#004AC6] rounded-2xl  text-white">Logout</Button>
+                    <Button onClick={logoutHandler} variant="" className="text-sm font-medium bg-[#004AC6] rounded-2xl  text-white">Logout</Button>
                 </>: <>
                 <Link href={"/login"}>
                     <Button variant="ghost" className="text-sm font-medium primary rounded-2xl ">Login</Button>

@@ -53,7 +53,7 @@ const UpdateProfile = ({ user }) => {
                                             <Input className={'bg-white border border-[#C3C6D7]'} placeholder="Enter Your Name" />
                                             <FieldError />
                                         </TextField>
-                                        <TextField defaultValue={user.image} isRequired className="w-full" name="image" type="text" variant="secondary">
+                                        <TextField defaultValue={user.image} className="w-full" name="image" type="text" variant="secondary">
                                             <Label>Image URL</Label>
                                             <Input className={'bg-white border border-[#C3C6D7]'} placeholder="Enter image URL" />
                                             <FieldError />
