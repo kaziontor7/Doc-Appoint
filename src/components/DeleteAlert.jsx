@@ -1,7 +1,21 @@
 "use client";
+import { revalidateDashboard } from "@/actions";
 import {AlertDialog, Button} from "@heroui/react";
 
 const DeleteAlert = ({ booking }) => {
+  const deleteHandler =async ()=>{
+       const res = await fetch(`http://localhost:5000/bookings/${booking._id}`,
+        {
+          method: 'DELETE',
+          headers:{ 'content-type' : 'application/json'}
+        }
+       )
+       const data = await res.json()
+       if (data.acknowledged
+               ) {
+                 await revalidateDashboard()
+               }
+  }
     return (
         <div>
              <AlertDialog>
@@ -27,7 +41,7 @@ const DeleteAlert = ({ booking }) => {
               <Button slot="close" variant="tertiary">
                 Cancel
               </Button>
-              <Button slot="close" variant="danger">
+              <Button onClick={deleteHandler} slot="close" variant="danger">
                 Delete Appointment
               </Button>
             </AlertDialog.Footer>

@@ -1,7 +1,9 @@
 import BookingCard from "@/components/BookingCard";
+import UpdateProfile from "@/components/UpdateProfile";
 import { auth } from "@/lib/auth";
 import { Tabs } from "@heroui/react";
 import { headers } from "next/headers";
+import Image from "next/image";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdPerson } from "react-icons/md";
 
@@ -12,6 +14,7 @@ const DashboardPage =async () => {
     headers: await headers() 
 })
   const user = session?.user
+  console.log(user);
     const res = await fetch(`http://localhost:5000/bookings/${user?.id}`);
     const bookings = await res.json();
     
@@ -49,6 +52,23 @@ const DashboardPage =async () => {
                     <Tabs.Panel className="px-4" id="profile">
                         <h3 className="title text-3xl">My Profile</h3>
                         <p className="text">Manage your profile information.</p>
+                        <div className="bg-white p-6 rounded-4xl shadow mt-2  gap-6 max-w-sm">
+                         <div>
+                           <Image src={user?.image} alt={user?.name} height={64} width={64} className="rounded-full mx-auto mb-4 border-2 border-[#00174B]"></Image>
+                         </div>
+                         <  div className="mt-4">
+                            <div className=" text-sm font-medium secondary border-t border-[#C3C6D7]/40 pt-4 space-y-2">
+                            <div className="flex items-center gap-7 overflow-hidden  justify-between">
+                            <p>Name : <span className="text">{user?.name}</span></p>
+                            <p className="">Patient ID : <span className="text">{user?.id.slice(0, 8)}</span></p>
+                            </div>
+                            <p>Email : <span className="text">{user?.email}</span></p>
+                            </div>
+                         </div>
+                         <div className="flex justify-end">
+                            <UpdateProfile user={user}></UpdateProfile>
+                         </div>
+                        </div>
                     </Tabs.Panel>
 
                 </div>
