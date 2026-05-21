@@ -5,7 +5,7 @@ import { getDoctors } from "@/data";
 
 
 const TopRated = async() => {
-  const doctors = await getDoctors('http://localhost:5000/top-appoints')
+  const doctors = await getDoctors(`${process.env.NEXT_PUBLIC_SERVER_URL}/top-appoints`)
   
     return (
         <div>

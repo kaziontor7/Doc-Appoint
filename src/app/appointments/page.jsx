@@ -3,7 +3,7 @@ import DocCard from "@/components/DocCard";
 import {  doctorsPromise } from "@/data";
 import { SearchField, Surface} from "@heroui/react";
 import { use, useState } from "react";
-const doctorsPromised = doctorsPromise('http://localhost:5000/appoints');
+const doctorsPromised = doctorsPromise(`${process.env.NEXT_PUBLIC_SERVER_URL}/appoints`);
 
 
 const Appointments =  () => {
@@ -11,7 +11,7 @@ const Appointments =  () => {
      const doctors = use(query);
      const searchHandler = (e) => {
        const value = e.target.value;
-       const searchPromise = doctorsPromise(`http://localhost:5000/appoints/search/${value}`);
+       const searchPromise = doctorsPromise(`${process.env.NEXT_PUBLIC_SERVER_URL}/appoints/search/${value}`);
        if(value.length === 0){
         setQuery(doctorsPromised);
        }
