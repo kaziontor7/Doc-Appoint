@@ -9,7 +9,7 @@ const BookingCard = ({ booking }) => {
     return (
         <div className="bg-white rounded-4xl p-6 shadow">
             <div className="flex items-center gap-3">
-                <Image src={booking.doctorImage} alt={booking.doctorName} height={64} width={64} className="rounded-full"></Image>
+                <Image src={booking.doctorImage} alt={booking.doctorName} height={64} width={64} className="rounded-full border-2 border-[#00174B]/10 shadow-sm"></Image>
                 <div className="">
                     <p className="title text-lg">{booking.doctorName}</p>
                     <p className="primary">{booking.specialty}</p>

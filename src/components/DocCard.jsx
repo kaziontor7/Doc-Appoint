@@ -12,7 +12,7 @@ const DocCard = ({ doctor }) => {
         <div className="p-6 bg-white rounded-4xl shadow">
             <div className="flex justify-between items-start border-b border-[#C3C6D7] pb-6">
                 <div className="flex items-center gap-3">
-                    <Image src={doctor.image} alt={doctor.name} height={64} width={64} className="rounded-full"></Image>
+                    <Image src={doctor.image} alt={doctor.name} height={64} width={64} className="rounded-full border-2 border-[#00174B]/10 shadow-sm"></Image>
                     <div className="">
                         <p className="title text-lg">{doctor.name}</p>
                         <p className="primary">{doctor.specialty}</p>

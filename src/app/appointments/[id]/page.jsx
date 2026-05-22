@@ -32,7 +32,7 @@ const DoctorDetails = async ({ params }) => {
         <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
             <div>
                 <div className='text-center bg-white rounded-3xl p-6 shadow'>
-                    <Image src={doctor.image} alt={doctor.name} height={192} width={192} className='rounded-full mb-6 mx-auto' />
+                    <Image src={doctor.image} alt={doctor.name} height={192} width={192} className='rounded-full mb-6 mx-auto border-4 border-[#00174B]/10 shadow-sm' />
                     <h2 className="text-2xl title">{doctor.name}</h2>
                     <p className='primary font-medium pt-1 pb-2'>{doctor.specialty}</p>
                     <p className='text text-sm font-medium flex items-center gap-1  justify-center pb-5 border-b-[1.5px] border-[#C3C6D7]/30'><MdOutlineLocalHospital />
